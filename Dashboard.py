@@ -37,9 +37,12 @@ if input_data:
 
     # Display historical data for the selected area
     st.subheader(f'Historical Yield Data for {input_data["Area"]}')
-    st.line_chart(summary_data, x="Year", y="hg/ha_yield",
-                 y_label='Year', x_label='Crop yield hg/ha',
-                 color="Item", horizontal=True, use_container_width=True)
+    # st.line_chart(summary_data, x="Year", y="hg/ha_yield",
+    #              y_label='Year', x_label='Crop yield hg/ha',
+    #              color="Item", horizontal=True, use_container_width=True)
+    multi_line_data = summary_data.pivot(index="Year", columns="Item", values="hg/ha_yield")
+    st.line_chart(multi_line_data)
+
 
     # Filter data for the selected year
     year_data = summary_data[summary_data['Year'] == input_data['Year']]
